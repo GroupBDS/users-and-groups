@@ -1,9 +1,6 @@
 package org.groupout.users_and_groups.pojos;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +14,8 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
-	
+	private Device primaryDevice;
+
 	public User() {
 	}
 	
@@ -77,4 +75,11 @@ public class User {
 		this.emailAddress = emailAddress;
 	}
 	
+	public Device getPrimaryDevice() {
+		return primaryDevice;
+	}
+
+	public void setPrimaryDevice(Device primaryDevice) {
+		this.primaryDevice = primaryDevice;
+	}
 }

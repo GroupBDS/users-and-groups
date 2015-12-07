@@ -5,7 +5,7 @@
 <hibernate-mapping>
 	<class name="org.groupout.users_and_groups.pojos.User" table="user">
 		<id name="userId" type="string">
-		    <column name="user_id" />
+			<column name="user_id" />
 		</id>
 		<property name="password" type="string">
 			<column name="password" />
@@ -25,5 +25,9 @@
 		<property name="emailAddress" type="string">
 			<column name="email_address" />
 		</property>
+		<many-to-one name="primaryDevice" column="primary_device"
+			unique="true" class="org.groupout.users_and_groups.pojos.Device"
+			not-null="true" cascade="save-update">
+		</many-to-one>
 	</class>
 </hibernate-mapping>
