@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.groupout.users_and_groups.pojos.Device" table="device">
+		<id name="deviceId" type="string" length="32" >
+			<column name="device_id" />
+		</id>
+		<property name="countryCode" length="4" >
+			<column name="country_code" />
+		</property>
+		<property name="phoneNumber" length="10" >
+			<column name="phone_number" />
+		</property>
+		<property name="registeredOn" type="string">
+			<column name="registered_on" />
+		</property>
+	</class>
+</hibernate-mapping>

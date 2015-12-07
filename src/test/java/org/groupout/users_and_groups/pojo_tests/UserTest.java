@@ -5,29 +5,41 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.groupout.users_and_groups.pojos.Device;
 import org.groupout.users_and_groups.pojos.User;
 import org.groupout.users_and_groups.utils.HibernateUtil;
+import org.groupout.users_and_groups.utils.IdGenerator;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class UserTest {
 	
-	private SessionFactory sessionFactory;
-	private Session session;
-	private Transaction transaction;
-	private Date date;
-	private User testUserObject;
+	private static SessionFactory sessionFactory;
+	private static Session session;
+	private static Transaction transaction;
+	private static Date date;
+	private static User testUserObject;
 	
-	@Before
-	public void setUpData() {
+	@BeforeClass
+	public static void setUpData() {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		date = new Date();
+		session = sessionFactory.openSession();
+		transaction = session.beginTransaction();
+		
+		Device device = new Device();
+		String deviceId = IdGenerator.generateId();
+		device.setDeviceId(deviceId);
+		device.setCountryCode("+091");
+		device.setPhoneNumber("9880067731");
+		device.setRegisteredOn(date.toString());
+		session.saveOrUpdate(device);
 		
 		testUserObject = new User();
 		testUserObject.setUserId("test.user");
@@ -36,11 +48,9 @@ public class UserTest {
 		testUserObject.setFirstName("Test");
 		testUserObject.setLastName("User");
 		testUserObject.setPassword("xyz");
-		testUserObject.setRegisteredOn(date.toString());
-		
-		session = sessionFactory.openSession();
-		transaction = session.beginTransaction();
-		session.saveOrUpdate(testUserObject);;
+		testUserObject.setRegisteredOn(date.toString());		
+		testUserObject.setPrimaryDevice(device);
+		session.saveOrUpdate(testUserObject);
 		transaction.commit();
 		session.close();
 		
@@ -71,6 +81,7 @@ public class UserTest {
 	
 	@Test
 	public void testUserId() {
+		System.out.println("SKPDebug User Id : " + testUserObject.getUserId());
 		assertEquals("test.user", testUserObject.getUserId());
 	}
 	
@@ -102,5 +113,10 @@ public class UserTest {
 	@Test
 	public void testGetRegisteredOn() {
 		assertEquals(date.toString(), testUserObject.getRegisteredOn());
-	}	
+	}
+	
+	@Test
+	public void testGetPrimaryDevice() {
+		//assertEquals("+091", testUserObject.getPrimaryDevice().getCountryCode());
+	}
 }
