@@ -15,9 +15,6 @@ public class User {
 	private String lastName;
 	private String emailAddress;
 	private Device primaryDevice;
-
-	public User() {
-	}
 	
 	public String getUserId() {
 		return userId;
