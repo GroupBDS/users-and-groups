@@ -40,6 +40,7 @@ public class UserTest {
 		device.setPhoneNumber("9880067731");
 		device.setRegisteredOn(date.toString());
 		session.saveOrUpdate(device);
+		session.flush();
 		
 		testUserObject = new User();
 		testUserObject.setUserId("test.user");
@@ -51,6 +52,7 @@ public class UserTest {
 		testUserObject.setRegisteredOn(date.toString());		
 		testUserObject.setPrimaryDevice(device);
 		session.saveOrUpdate(testUserObject);
+		session.flush();
 		transaction.commit();
 		session.close();
 		
@@ -67,16 +69,18 @@ public class UserTest {
 	
 	@After
 	public void clearData() {
-		sessionFactory = HibernateUtil.getSessionFactory();
+		/*sessionFactory = HibernateUtil.getSessionFactory();
 		session = sessionFactory.openSession();
 		transaction = session.beginTransaction();
-		testUserObject = null;
-		testUserObject = session.load(User.class, "test.user");
-		if (testUserObject != null)
+		testUserObject = new User();
+		testUserObject = session.get(User.class, "test.user");
+		if (testUserObject != null) {
+			Device device = testUserObject.getPrimaryDevice();
+			session.delete(device);
 			session.delete(testUserObject);
-		
-		transaction.commit();
-		session.close();
+			transaction.commit();
+			session.close();
+		}*/
 	}
 	
 	@Test
@@ -92,6 +96,7 @@ public class UserTest {
 	
 	@Test
 	public void testLastName() {
+		System.out.println("SKPDebug expected : User, actual : " + testUserObject.getLastName());
 		assertEquals("User", testUserObject.getLastName());
 	}
 	

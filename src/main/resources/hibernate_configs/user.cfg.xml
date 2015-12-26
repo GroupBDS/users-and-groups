@@ -25,9 +25,7 @@
 		<property name="emailAddress" type="string">
 			<column name="email_address" />
 		</property>
-		<many-to-one name="primaryDevice" column="primary_device"
-			unique="true" class="org.groupout.users_and_groups.pojos.Device"
-			not-null="true" cascade="save-update">
-		</many-to-one>
+		<many-to-one name="primaryDevice" column="primaryDevice" unique="true" class="org.groupout.users_and_groups.pojos.Device"
+			not-null="true"></many-to-one>
 	</class>
 </hibernate-mapping>
