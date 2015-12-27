@@ -11,6 +11,8 @@ public class Device {
 	private String countryCode;
 	private String phoneNumber;
 	private String registeredOn;
+	private DeviceCategory deviceCategory;
+	private DeviceType deviceTye;
 	
 	public String getDeviceId() {
 		return deviceId;
@@ -42,5 +44,20 @@ public class Device {
 	
 	public void setRegisteredOn(String registeredOn) {
 		this.registeredOn = registeredOn;
+	}
+	public DeviceCategory getDeviceCategory() {
+		return deviceCategory;
+	}
+
+	public void setDeviceCategory(DeviceCategory deviceCategory) {
+		this.deviceCategory = deviceCategory;
+	}
+
+	public DeviceType getDeviceTye() {
+		return deviceTye;
+	}
+
+	public void setDeviceTye(DeviceType deviceTye) {
+		this.deviceTye = deviceTye;
 	}
 }
