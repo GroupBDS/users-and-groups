@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.groupout.users_and_groups.pojos.Group" table="group">
+		<id name="groupId" type="string">
+			<column name="group_id" />
+		</id>
+		<property name="name" type="string">
+			<column name="name" />
+		</property>
+		<property name="memberCount" type="integer">
+			<column name="member_count" />
+		</property>
+		<property name="createdOn" type="string">
+			<column name="created_on" />
+		</property>
+		<property name="lastActivityOn" type="string">
+			<column name="last_activity_on" />
+		</property>
+		<property name="description" type="string" length="512">
+			<column name="description" not-null="false" />
+		</property>
+		<property name="isActive" type="boolean">
+			<column name="is_active" />
+		</property>
+		<property name="messageBlob" type="string">
+			<column name="message_blob" />
+		</property>
+		<many-to-one name="groupType" column="group_type" unique="true" class="org.groupout.users_and_groups.pojos.GroupType"
+			not-null="true"></many-to-one>
+		<many-to-one name="primaryAdmin" column="primary_admin" unique="true" class="org.groupout.users_and_groups.pojos.User"
+			not-null="true"></many-to-one>s
+	</class>
+</hibernate-mapping>
