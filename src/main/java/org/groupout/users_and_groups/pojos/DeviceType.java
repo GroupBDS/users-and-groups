@@ -8,7 +8,7 @@ import javax.persistence.Table;
 public class DeviceType {
 
 	private String typeId;
-	private String deviceType;
+	private String type;
 	
 	public String getTypeId() {
 		return typeId;
@@ -16,10 +16,10 @@ public class DeviceType {
 	public void setTypeId(String typeId) {
 		this.typeId = typeId;
 	}
-	public String getDeviceType() {
-		return deviceType;
+	public String getType() {
+		return type;
 	}
-	public void setDeviceType(String deviceType) {
-		this.deviceType = deviceType;
+	public void setType(String type) {
+		this.type = type;
 	}
 }

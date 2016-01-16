@@ -12,7 +12,7 @@ public class Device {
 	private String phoneNumber;
 	private String registeredOn;
 	private DeviceCategory deviceCategory;
-	private DeviceType deviceTye;
+	private DeviceType deviceType;
 	
 	public String getDeviceId() {
 		return deviceId;
@@ -53,11 +53,11 @@ public class Device {
 		this.deviceCategory = deviceCategory;
 	}
 
-	public DeviceType getDeviceTye() {
-		return deviceTye;
+	public DeviceType getDeviceType() {
+		return deviceType;
 	}
 
-	public void setDeviceTye(DeviceType deviceTye) {
-		this.deviceTye = deviceTye;
+	public void setDeviceType(DeviceType deviceType) {
+		this.deviceType = deviceType;
 	}
 }
