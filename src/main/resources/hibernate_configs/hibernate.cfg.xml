@@ -7,7 +7,7 @@
 
 		<property name="connection.url">jdbc:mysql://localhost:3306/users_and_groups</property>
 		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
+		<property name="connection.password">kalsanka</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
@@ -23,6 +23,11 @@
 		<!-- POJO resource mappings -->
 		<mapping resource="user.cfg.xml" />
 		<mapping resource="device.cfg.xml" />
+		<mapping resource="device_category.cfg.xml" />
+		<mapping resource="device_type.cfg.xml" />
+		<mapping resource="group_type.cfg.xml" />
+		<mapping resource="group.cfg.xml" />
+
 
 	</session-factory>
 </hibernate-configuration>

@@ -54,10 +54,10 @@ public class Group {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 	public String getMessageBlob() {

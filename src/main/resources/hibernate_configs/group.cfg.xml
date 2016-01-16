@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="org.groupout.users_and_groups.pojos.Group" table="group">
+	<class name="org.groupout.users_and_groups.pojos.Group" table="[group]">
 		<id name="groupId" type="string">
 			<column name="group_id" />
 		</id>
@@ -31,6 +31,6 @@
 		<many-to-one name="groupType" column="group_type" unique="true" class="org.groupout.users_and_groups.pojos.GroupType"
 			not-null="true"></many-to-one>
 		<many-to-one name="primaryAdmin" column="primary_admin" unique="true" class="org.groupout.users_and_groups.pojos.User"
-			not-null="true"></many-to-one>s
+			not-null="true"></many-to-one>
 	</class>
 </hibernate-mapping>
