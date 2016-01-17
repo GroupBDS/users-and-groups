@@ -44,7 +44,8 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public boolean insert() {
 		try {
 			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, this.columnValueMap);
-			this.statement.executeQuery(query);
+			System.out.println("SKP " + query);
+			this.statement.executeUpdate(query);
 			return true;
 		} catch(Exception e) {
 			System.out.println("Error inserting record into the database");
@@ -56,6 +57,23 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public boolean update() {
 		
 		return true;
+	}
+	
+	/**
+	 * Closes the connection maintained by this data manager
+	 * @return true if the connection is closed successfully
+	 */
+	public boolean closeConnection() {
+		try {
+			if (this.connection != null) {
+				this.connection.close();
+				return true;
+			}
+			return false;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/** Initialize all the properties that are required to access database */
