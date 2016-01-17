@@ -28,8 +28,17 @@ public class JDBCQueryHelper<T> {
 		while (mapIterator.hasNext()) {
 			Map.Entry<String, T> mapEntry = (Map.Entry<String, T>)mapIterator.next();
 			fQueryBuilder.append(mapEntry.getKey());
-			lQueryBuilder.append(mapEntry.getValue());
 			
+			// If the data type is String, we need to enclose it in double quotes
+			T value = mapEntry.getValue();
+			if (value.getClass().getSimpleName().equals("String"))
+				lQueryBuilder.append("'");
+			
+			lQueryBuilder.append(mapEntry.getValue());
+
+			if (value.getClass().getSimpleName().equals("String"))
+				lQueryBuilder.append("'");
+
 			if (mapIterator.hasNext()) {
 				fQueryBuilder.append(", ");
 				lQueryBuilder.append(", ");
@@ -37,7 +46,7 @@ public class JDBCQueryHelper<T> {
 		}
 		
 		fQueryBuilder.append(")");
-		lQueryBuilder.append("));");
+		lQueryBuilder.append(")");
 		
 		fQueryBuilder.append(lQueryBuilder.toString());
 		return fQueryBuilder.toString();
