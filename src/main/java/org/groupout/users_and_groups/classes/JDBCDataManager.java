@@ -4,8 +4,11 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import org.groupout.users_and_groups.utils.JDBCQueryHelper;
 
 public class JDBCDataManager<T> implements DataManager<T> {
 	
@@ -20,6 +23,7 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	
 	public JDBCDataManager(String tableName) {
 		this.tableName = tableName;
+		this.columnValueMap = new HashMap<String, T>();
 		this.initializeDatabaseProperties();
 		this.initializeConnection();
 	}
@@ -32,14 +36,26 @@ public class JDBCDataManager<T> implements DataManager<T> {
 		return this.columnValueMap.get(column);
 	}
 	
-	public String insert() {
-		
-		return "";
+	/**
+	 * Inserts the values set in the map and returns a unique id associated with this record
+	 * if the insert was successful
+	 * @return true if the record insert was successful
+	 */
+	public boolean insert() {
+		try {
+			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, this.columnValueMap);
+			this.statement.executeQuery(query);
+			return true;
+		} catch(Exception e) {
+			System.out.println("Error inserting record into the database");
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
-	public String update() {
+	public boolean update() {
 		
-		return "";
+		return true;
 	}
 	
 	/** Initialize all the properties that are required to access database */
