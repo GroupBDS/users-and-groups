@@ -44,7 +44,6 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public boolean insert() {
 		try {
 			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, this.columnValueMap);
-			System.out.println("SKP " + query);
 			this.statement.executeUpdate(query);
 			return true;
 		} catch(Exception e) {
