@@ -3,9 +3,9 @@ package org.groupout.users_and_groups.jdbc.pojos;
 import org.groupout.users_and_groups.classes.RecordManager;
 import org.groupout.users_and_groups.utils.Constants;
 
-public class DeviceType extends RecordManager {
+public class GroupType extends RecordManager {
 
-	public DeviceType() {
-		super(Constants.DEVICE_TYPE_TABLE);
+	public GroupType() {
+		super(Constants.GROUP_TYPE_TABLE);
 	}
 }
