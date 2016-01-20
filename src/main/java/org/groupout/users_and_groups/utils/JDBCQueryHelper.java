@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 public class JDBCQueryHelper<T> {
 	
 	/**
-	 * Returns a query string for a given tableName and columnValueMap
+	 * Returns an insert query string for a given tableName and columnValueMap
 	 * @param tableName Name of the table to insert values into
-	 * @param columnValueMap Map with column name as keys and volumn values as values
-	 * @return
+	 * @param columnValueMap Map with column name as keys and column values as values
+	 * @return insert query
 	 */
 	public static <T> String getInsertQueryFromMap(String tableName, Map<String, T> columnValueMap) {
 		
@@ -49,6 +49,44 @@ public class JDBCQueryHelper<T> {
 		lQueryBuilder.append(")");
 		
 		fQueryBuilder.append(lQueryBuilder.toString());
+		return fQueryBuilder.toString();
+	}
+
+	/**
+	 * Returns a delete query string for a given tableName and columnValueMap
+	 * @param tableName Name of the table to delete values from
+	 * @param columnValueMap Map with column name as keys and column values as values
+	 * @return delete query
+	 */	
+	public static <T> String getDeleteQueryFromMap(String tableName, Map<String, T> columnValueMap) {
+		
+		StringBuilder fQueryBuilder = new StringBuilder();
+		StringBuilder lQueryBuilder = new StringBuilder();
+		String prefix = "";
+		
+		fQueryBuilder.append("DELETE FROM ");
+		fQueryBuilder.append(tableName);
+		fQueryBuilder.append(" WHERE (");
+		
+		lQueryBuilder.append(" IN  ((");
+		
+		Iterator<Entry<String, T>> mapIterator = columnValueMap.entrySet().iterator();
+		while (mapIterator.hasNext()) {
+			Map.Entry<String, T> mapEntry = (Map.Entry<String, T>)mapIterator.next();
+			fQueryBuilder.append(prefix);
+			fQueryBuilder.append(mapEntry.getKey());
+			
+			fQueryBuilder.append(prefix);
+			lQueryBuilder.append(mapEntry.getValue());
+			
+			prefix = ",";
+		}
+		
+		fQueryBuilder.append(")");
+		lQueryBuilder.append("))");
+		
+		fQueryBuilder.append(lQueryBuilder.toString());
+		
 		return fQueryBuilder.toString();
 	}
 }
