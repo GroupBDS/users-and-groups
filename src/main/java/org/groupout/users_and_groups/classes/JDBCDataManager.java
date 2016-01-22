@@ -13,6 +13,7 @@ import org.groupout.users_and_groups.utils.JDBCQueryHelper;
 public class JDBCDataManager<T> implements DataManager<T> {
 	
 	private Map<String, T> columnValueMap;
+	private Map<String, T> queryMap;
 	private String tableName;
 	private Connection connection;
 	private Statement statement;
@@ -24,6 +25,7 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public JDBCDataManager(String tableName) {
 		this.tableName = tableName;
 		this.columnValueMap = new HashMap<String, T>();
+		this.queryMap = new HashMap<String, T>();
 		this.initializeDatabaseProperties();
 		this.initializeConnection();
 	}
@@ -56,6 +58,15 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public boolean update() {
 		
 		return true;
+	}
+	
+	/**
+	 * Adds query conditions to the map. Once queries are added, call update method
+	 * @param columnName name of the column to which the query is to be added to
+	 * @param value value of the column to which the query is to be added
+	 */
+	public void addQueryCondition(String columnName, T value) {
+		this.queryMap.put(columnName, value);
 	}
 	
 	/**
