@@ -3,11 +3,13 @@ package org.groupout.users_and_groups.classes;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.groupout.users_and_groups.utils.IdGenerator;
 import org.groupout.users_and_groups.utils.JDBCQueryHelper;
 
 public class JDBCDataManager<T> implements DataManager<T> {
@@ -45,6 +47,8 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	 */
 	public boolean insert() {
 		try {
+			T recId = (T) IdGenerator.generateId();
+			this.columnValueMap.put("rec_id", recId);		
 			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, this.columnValueMap);
 			this.statement.executeUpdate(query);
 			return true;
@@ -68,6 +72,24 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public void addQueryCondition(String columnName, T value) {
 		this.queryMap.put(columnName, value);
 	}
+	
+	/**
+	 * Returns the record by id
+	 * @param recId Id of the record
+	 * @return ResultSet object containing the row
+	 */
+	public ResultSet getByRecId(String recId) {
+		ResultSet resultSet = null;
+		try {
+			String query = JDBCQueryHelper.getQueryByRecId(this.tableName, recId);
+			resultSet = this.statement.executeQuery(query);
+		} catch(Exception e) {
+			System.out.println("Error fetching record by id");
+			e.printStackTrace();
+		}
+		return resultSet;
+	}
+	
 	
 	/**
 	 * Closes the connection maintained by this data manager

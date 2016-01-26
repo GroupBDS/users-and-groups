@@ -89,4 +89,21 @@ public class JDBCQueryHelper<T> {
 		
 		return fQueryBuilder.toString();
 	}
+	
+	/**
+	 * Returns the query to query a table by record id
+	 * @param tableName Name of the table to query from
+	 * @param recId id of the record
+	 * @return query string
+	 */
+	public static <T> String getQueryByRecId(String tableName, String recId) {
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT * FROM ");
+		query.append(tableName);
+		query.append(" WHERE rec_id='");
+		query.append(recId);
+		query.append("'");
+		
+		return query.toString();
+	}
 }
