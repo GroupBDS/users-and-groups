@@ -1,14 +1,12 @@
 package org.groupout.users_and_groups.jdbc.pojos;
 
-import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.groupout.users_and_groups.classes.RecordManager;
-import org.groupout.users_and_groups.utils.Constants;
-
 @XmlRootElement
-public class User extends RecordManager {
+public class User<T> {
 
 	private String recId;
 	private String password;
@@ -17,78 +15,81 @@ public class User extends RecordManager {
 	private String firstName;
 	private String lastName;
 	private String emailAddress;
-	private Device device;
+	//private Device device;
+	private Map<String, T> columnValueMap = new HashMap<String, T>();
 	
-	// Constructor
 	public User() {
-		super(Constants.USER_TABLE);
 	}
 		
-	public String getRecId() {
-		return recId;
+	public T getRecId() {
+		return this.columnValueMap.get("rec_id");
 	}
 
-	public void setRecId(String recId) {
-		this.recId = recId;
+	public void setRecId(T recId) {
+		this.columnValueMap.put("rec_id", recId);
 	}
 
-	public String getPassword() {
-		return password;
+	public T getPassword() {
+		return this.columnValueMap.get("password");
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(T password) {
+		this.columnValueMap.put("password", password);
 	}
 
-	public boolean isActive() {
-		return active;
+	public T isActive() {
+		return this.columnValueMap.get("active");
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setActive(T active) {
+		this.columnValueMap.put("active", active);
 	}
 
-	public String getRegisteredOn() {
-		return registeredOn;
+	public T getRegisteredOn() {
+		return this.columnValueMap.get("registered_on");
 	}
 
-	public void setRegisteredOn(String registeredOn) {
-		this.registeredOn = registeredOn;
+	public void setRegisteredOn(T registeredOn) {
+		this.columnValueMap.put("registered_on", registeredOn);
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public T getFirstName() {
+		return this.columnValueMap.get("first_name");
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(T firstName) {
+		this.columnValueMap.put("first_name", firstName);
 	}
 
-	public String getLastName() {
-		return lastName;
+	public T getLastName() {
+		return this.columnValueMap.get("last_name");
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(T lastName) {
+		this.columnValueMap.put("last_name", lastName);
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	public T getEmailAddress() {
+		return this.columnValueMap.get("email_address");
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public void setEmailAddress(T emailAddress) {
+		this.columnValueMap.put("email_address", emailAddress);
+	}
+	
+	public Map<String, T> getColumnValueMap() {
+		return this.columnValueMap;
 	}
 
-	public Device getDevice() {
+	/*public Device getDevice() {
 		return device;
 	}
 
 	public void setDevice(Device device) {
 		this.device = device;
-	}
+	}*/
 	
-	public void getModelById(String recId) {
+	/*public void getModelById(String recId) {
 		try {
 			ResultSet resultSet = this.getByRecId(recId);
 			if (resultSet.next()) {
@@ -103,5 +104,5 @@ public class User extends RecordManager {
 			System.out.println("Error getting model by id");
 			e.printStackTrace();
 		}
-	}
+	} */
 }

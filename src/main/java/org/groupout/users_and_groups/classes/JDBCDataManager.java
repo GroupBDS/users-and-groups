@@ -32,6 +32,13 @@ public class JDBCDataManager<T> implements DataManager<T> {
 		this.initializeConnection();
 	}
 	
+	public JDBCDataManager() {
+		this.columnValueMap = new HashMap<String, T>();
+		this.queryMap = new HashMap<String, T>();
+		this.initializeDatabaseProperties();
+		this.initializeConnection();		
+	}
+	
 	public void setValue(String column, T value) {
 		this.columnValueMap.put(column, value);
 	}
@@ -40,16 +47,19 @@ public class JDBCDataManager<T> implements DataManager<T> {
 		return this.columnValueMap.get(column);
 	}
 	
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+	
 	/**
 	 * Inserts the values set in the map and returns a unique id associated with this record
 	 * if the insert was successful
+	 * @param Map of column names as keys and column values as values
 	 * @return true if the record insert was successful
 	 */
-	public boolean insert() {
+	public boolean insert(Map<String, T> columnValueMap) {
 		try {
-			T recId = (T) IdGenerator.generateId();
-			this.columnValueMap.put("rec_id", recId);		
-			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, this.columnValueMap);
+			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, columnValueMap);
 			this.statement.executeUpdate(query);
 			return true;
 		} catch(Exception e) {
@@ -57,6 +67,10 @@ public class JDBCDataManager<T> implements DataManager<T> {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean insert() {
+		return false;
 	}
 	
 	public boolean update() {
@@ -83,10 +97,12 @@ public class JDBCDataManager<T> implements DataManager<T> {
 		try {
 			String query = JDBCQueryHelper.getQueryByRecId(this.tableName, recId);
 			resultSet = this.statement.executeQuery(query);
+			resultSet.next();
 		} catch(Exception e) {
 			System.out.println("Error fetching record by id");
 			e.printStackTrace();
 		}
+		
 		return resultSet;
 	}
 	
