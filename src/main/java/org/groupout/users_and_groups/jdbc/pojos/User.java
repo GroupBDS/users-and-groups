@@ -3,18 +3,19 @@ package org.groupout.users_and_groups.jdbc.pojos;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User<T> {
 
-	private String recId;
-	private String password;
-	private boolean active;
-	private String registeredOn;
-	private String firstName;
-	private String lastName;
-	private String emailAddress;
+	@XmlElement public String recId;
+	@XmlElement public String password;
+	@XmlElement public boolean active;
+	@XmlElement public String registeredOn;
+	@XmlElement public String firstName;
+	@XmlElement public String lastName;
+	@XmlElement public String emailAddress;
 	//private Device device;
 	private Map<String, T> columnValueMap = new HashMap<String, T>();
 	

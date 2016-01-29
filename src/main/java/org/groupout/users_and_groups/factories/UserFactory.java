@@ -13,11 +13,12 @@ public class UserFactory {
 	 * Method that creates a new User object and sets its record id
 	 * @return User object with recId set
 	 */
-	public static User createNewUser() {
+	public static User createNewUser(User user) {
 		
-		User user = new User();
 		String recId = IdGenerator.generateId();
 		user.setRecId(recId);
+		populateColumnValueMap(user);
+		
 		return user;
 	}
 	
@@ -46,4 +47,13 @@ public class UserFactory {
 		return user;
 	}
 	
+	private static void populateColumnValueMap(User user) {
+		user.setFirstName(user.firstName);
+		user.setLastName(user.lastName);
+		user.setPassword(user.password);
+		user.setRegisteredOn(user.registeredOn);
+		user.setActive(user.active);
+		user.setEmailAddress(user.emailAddress);
+	}
 }
+
