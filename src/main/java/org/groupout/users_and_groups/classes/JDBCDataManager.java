@@ -60,6 +60,7 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	public boolean insert(Map<String, T> columnValueMap) {
 		try {
 			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, columnValueMap);
+			System.out.println("SKPDebug query : " + query);
 			this.statement.executeUpdate(query);
 			return true;
 		} catch(Exception e) {
@@ -106,6 +107,20 @@ public class JDBCDataManager<T> implements DataManager<T> {
 		return resultSet;
 	}
 	
+	/**
+	 * Returns all the rows from the table
+	 * @return ResultSet object containing all the records from the table that has been set
+	 */
+	public ResultSet getAllRecordsInTable() {
+		ResultSet resultSet = null;
+		try {
+			String query = JDBCQueryHelper.getSelectAllQueryForTable(this.tableName);
+			resultSet = this.statement.executeQuery(query);
+		} catch(Exception e) {
+			System.out.println("Error getting all the records from table : " + this.tableName);
+		}
+		return resultSet;
+	}
 	
 	/**
 	 * Closes the connection maintained by this data manager
