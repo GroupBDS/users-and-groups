@@ -106,4 +106,13 @@ public class JDBCQueryHelper<T> {
 		
 		return query.toString();
 	}
+	
+	/**
+	 * Returns the query required to select all the records from the table
+	 * @param tableName name of the table to return rows from
+	 * @return Select all query
+	 */
+	public static String getSelectAllQueryForTable(String tableName) {
+		return "SELECT * FROM " + tableName;
+	}
 }
