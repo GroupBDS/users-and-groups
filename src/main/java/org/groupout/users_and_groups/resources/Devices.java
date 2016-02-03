@@ -9,10 +9,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.groupout.users_and_groups.classes.DeviceCategoryManager;
+import org.groupout.users_and_groups.classes.DeviceTypeManager;
 import org.groupout.users_and_groups.jdbc.pojos.DeviceCategory;
+import org.groupout.users_and_groups.jdbc.pojos.DeviceType;
 
 @Path("/device")
-public class DeviceCategories {
+public class Devices {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -28,4 +30,21 @@ public class DeviceCategories {
 
 		return deviceCategoryList;
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/types")
+	public List<DeviceType> getDeviceTypes() {
+		List<DeviceType> deviceTypeList = new ArrayList<DeviceType>();
+		try {
+			deviceTypeList = DeviceTypeManager.getDeviceTypes();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return deviceTypeList;
+	}
+	
+	
+	
 }

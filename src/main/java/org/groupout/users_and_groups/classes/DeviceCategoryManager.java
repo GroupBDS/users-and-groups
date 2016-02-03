@@ -24,8 +24,8 @@ public class DeviceCategoryManager {
 				recId = resultSet.getString("rec_id");
 				category = resultSet.getString("category");
 				deviceCategory = new DeviceCategory();
-				deviceCategory.setRecId(recId);
-				deviceCategory.setCategory(category);
+				deviceCategory.recId = recId;
+				deviceCategory.category = category;
 				deviceCategoryList.add(deviceCategory);
 			}
 		} catch (Exception e) {
