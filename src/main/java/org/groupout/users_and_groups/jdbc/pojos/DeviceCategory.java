@@ -10,14 +10,5 @@ public class DeviceCategory {
 	@XmlElement public String category;
 	
 	public DeviceCategory() {
-		
-	}
-	
-	public void setRecId(String recId) {
-		this.recId = recId;
-	}
-	
-	public void setCategory(String category) {
-		this.category = category;
 	}
 }
