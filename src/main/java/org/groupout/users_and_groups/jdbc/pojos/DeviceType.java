@@ -6,9 +6,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class DeviceType {
 
-	@XmlElement public String recId;
-	@XmlElement public String type;
-	
+	@XmlElement
+	public String recId;
+	@XmlElement
+	public String type;
+
 	public DeviceType() {
 	}
 }

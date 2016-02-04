@@ -9,19 +9,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User<T> {
 
-	@XmlElement public String recId;
-	@XmlElement public String password;
-	@XmlElement public boolean active;
-	@XmlElement public String registeredOn;
-	@XmlElement public String firstName;
-	@XmlElement public String lastName;
-	@XmlElement public String emailAddress;
-	//private Device device;
+	@XmlElement
+	public String recId;
+	@XmlElement
+	public String password;
+	@XmlElement
+	public boolean active;
+	@XmlElement
+	public String registeredOn;
+	@XmlElement
+	public String firstName;
+	@XmlElement
+	public String lastName;
+	@XmlElement
+	public String emailAddress;
+	@XmlElement
+	public Device device;
+
+	// private Device device;
 	private Map<String, T> columnValueMap = new HashMap<String, T>();
-	
+
 	public User() {
 	}
-		
+
 	public T getRecId() {
 		return this.columnValueMap.get("rec_id");
 	}
@@ -77,33 +87,16 @@ public class User<T> {
 	public void setEmailAddress(T emailAddress) {
 		this.columnValueMap.put("email_address", emailAddress);
 	}
-	
+
 	public Map<String, T> getColumnValueMap() {
 		return this.columnValueMap;
 	}
 
-	/*public Device getDevice() {
+	public Device getDevice() {
 		return device;
 	}
 
 	public void setDevice(Device device) {
 		this.device = device;
-	}*/
-	
-	/*public void getModelById(String recId) {
-		try {
-			ResultSet resultSet = this.getByRecId(recId);
-			if (resultSet.next()) {
-				this.setRecId(resultSet.getString("rec_id"));
-				this.setActive(resultSet.getBoolean("active"));
-				this.setEmailAddress(resultSet.getString("email_address"));
-				this.setFirstName(resultSet.getString("first_name"));
-				this.setLastName(resultSet.getString("last_name"));
-				this.setRegisteredOn(resultSet.getString("registered_on"));
-			}
-		} catch(Exception e) {
-			System.out.println("Error getting model by id");
-			e.printStackTrace();
-		}
-	} */
+	}
 }
