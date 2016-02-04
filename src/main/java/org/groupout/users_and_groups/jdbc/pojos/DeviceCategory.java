@@ -5,10 +5,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class DeviceCategory {
-	
-	@XmlElement public String recId;
-	@XmlElement public String category;
-	
+
+	@XmlElement
+	public String recId;
+	@XmlElement
+	public String category;
+
 	public DeviceCategory() {
 	}
 }
