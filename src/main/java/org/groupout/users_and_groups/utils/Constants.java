@@ -9,8 +9,15 @@ public class Constants {
 	public static final String GROUP_TABLE             = "group";
 	public static final String GROUP_TYPE_TABLE        = "group_type";
 	public static final String USER_TABLE              = "user";
+	public static final String MAP_USER_DEVICE         = "map_user_device_details";
 	
 	// Device types
 	public static final String CELLPHONE = "cellphone";
 	public static final String TABLET    = "tablet";
+	
+	
+	
+	// These statuses can be used anywhere
+	public static final String SUCCESS = "success";
+	public static final String FAILURE = "failure";
 }
