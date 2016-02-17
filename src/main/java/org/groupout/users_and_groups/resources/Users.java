@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.groupout.users_and_groups.classes.JDBCDataManager;
+import org.groupout.users_and_groups.classes.RegistrationManager;
 import org.groupout.users_and_groups.classes.ReturnObject;
 import org.groupout.users_and_groups.factories.UserFactory;
 import org.groupout.users_and_groups.jdbc.pojos.User;
@@ -31,19 +32,7 @@ public class Users {
 	@Produces(MediaType.APPLICATION_JSON)
 	public ReturnObject createUser(User user) {
 		ReturnObject returnObject = new ReturnObject();
-		try {
-			JDBCDataManager dataManager = new JDBCDataManager();
-			dataManager.setTableName(Constants.USER_TABLE);
-			user = UserFactory.createNewUser(user);
-			dataManager.insert(user.getColumnValueMap());
-			dataManager.closeConnection();
-			returnObject.status = "success";
-			returnObject.message = "Successfully inserted user " + user.getFirstName();
-			return returnObject;
-		} catch(Exception e) {
-			returnObject.status = "error";
-			returnObject.message = e.getMessage();
-			return returnObject;
-		}
+		RegistrationManager registrationManager = new RegistrationManager();
+		return registrationManager.registerUser(user);
 	}
 }

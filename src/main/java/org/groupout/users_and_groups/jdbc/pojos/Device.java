@@ -18,7 +18,7 @@ public class Device {
 	public String phoneNumber;
 	@XmlElement
 	public DeviceCategory deviceCategory;
-
+	
 	public Device() {
 	}
 

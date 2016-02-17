@@ -58,9 +58,8 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	 * @return true if the record insert was successful
 	 */
 	public boolean insert(Map<String, T> columnValueMap) {
-		try {
+		try {			
 			String query = JDBCQueryHelper.getInsertQueryFromMap(this.tableName, columnValueMap);
-			System.out.println("SKPDebug query : " + query);
 			this.statement.executeUpdate(query);
 			return true;
 		} catch(Exception e) {
@@ -71,7 +70,7 @@ public class JDBCDataManager<T> implements DataManager<T> {
 	}
 	
 	public boolean insert() {
-		return false;
+		return this.insert(this.columnValueMap);
 	}
 	
 	public boolean update() {
