@@ -1,6 +1,5 @@
 package org.groupout.users_and_groups.classes;
 
-import org.groupout.users_and_groups.jdbc.pojos.Device;
 import org.groupout.users_and_groups.jdbc.pojos.User;
 import org.groupout.users_and_groups.utils.Constants;
 
@@ -34,6 +33,11 @@ public class RegistrationManager {
 			dataManager.setValue("device_id", deviceId);
 			dataManager.setValue("active", true);
 			dataManager.insert();
+			
+			// Populate a record in the user_verification_status table
+			UserVerificationStatusManager userVerifStatusManager = new UserVerificationStatusManager();
+			userVerifStatusManager.createUserVerificationStatusRecord(userRecId, deviceId);
+			
 		} catch(Exception e) {
 			System.out.println("Error registering user");
 			e.printStackTrace();
@@ -45,6 +49,4 @@ public class RegistrationManager {
 		
 		return returnObject;
 	}
-	
-	
 }

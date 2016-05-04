@@ -20,7 +20,7 @@ public class DeviceManager {
 
 		StringBuilder recIdBuilder = new StringBuilder();
 		String recId = IdGenerator.generateId();
-		JDBCDataManager dataManager = new JDBCDataManager(Constants.DEVICE_TABLE);
+		JDBCDataManager<String> dataManager = new JDBCDataManager<String>(Constants.DEVICE_TABLE);
 		
 		dataManager.setValue("rec_id", recId);
 		dataManager.setValue("device_type", device.deviceType.recId);
