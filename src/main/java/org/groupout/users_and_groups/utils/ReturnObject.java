@@ -18,15 +18,7 @@ public class ReturnObject {
 		this.returnValueMap.put(statusKey, Constants.SUCCESS);
 		this.returnValueMap.put(messageKey, "");
 	}
-	
-	public void setStatusSuccess() {
-		setStatus(Constants.SUCCESS);
-	}
-	
-	public void setStatusFailure() {
-		setStatus(Constants.FAILURE);
-	}
-	
+		
 	public void setMessage(String message) {
 		this.returnValueMap.put(messageKey, message);
 	}
@@ -39,7 +31,7 @@ public class ReturnObject {
 		return returnJSONBuilder.build();
 	}
 	
-	private void setStatus(String status) {
+	public void setStatus(String status) {
 		this.returnValueMap.put(statusKey, status);
 	}	
 }
