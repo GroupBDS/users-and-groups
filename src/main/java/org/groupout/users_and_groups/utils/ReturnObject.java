@@ -1,8 +1,8 @@
 package org.groupout.users_and_groups.utils;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -18,29 +18,20 @@ public class ReturnObject {
 		this.returnValueMap.put(statusKey, Constants.SUCCESS);
 		this.returnValueMap.put(messageKey, "");
 	}
-	
-	public void setStatusSuccess() {
-		this.returnValueMap.put(statusKey, Constants.SUCCESS);
-	}
-	
-	public void setStatusFailure() {
-		this.returnValueMap.put(statusKey, Constants.FAILURE);
-	}
-	
+		
 	public void setMessage(String message) {
 		this.returnValueMap.put(messageKey, message);
 	}
 	
 	public JsonObject getJSON() {
-		
 		JsonObjectBuilder returnJSONBuilder = Json.createObjectBuilder();
-		Iterator keyIterator = this.returnValueMap.entrySet().iterator();
-		while (keyIterator.hasNext()) {
-			Map.Entry<String, String> entry = (Map.Entry<String, String>)keyIterator.next();
-			System.out.println("Key : " + entry.getKey() + ", value : " + entry.getValue());
+		for (Entry<String, String> entry : this.returnValueMap.entrySet())
 			returnJSONBuilder.add(entry.getKey(), entry.getValue());
-		}
 		
 		return returnJSONBuilder.build();
 	}
+	
+	public void setStatus(String status) {
+		this.returnValueMap.put(statusKey, status);
+	}	
 }

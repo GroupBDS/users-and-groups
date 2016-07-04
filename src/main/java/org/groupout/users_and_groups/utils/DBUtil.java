@@ -1,3 +1,8 @@
+/**
+ * @author shravan.pai
+ * Utility functions that deal with databases
+ */
+
 package org.groupout.users_and_groups.utils;
 
 
@@ -7,27 +12,25 @@ import com.rethinkdb.net.Connection;
 public class DBUtil {
 
 	private static RethinkDB r = RethinkDB.r;
-	public static String createTable(String tableName) throws Exception {
+	public static ReturnObject createTable(String databaseName, String tableName) throws Exception {
 		try {
 			String hostName = getHostName();
 			int port = getPortNumber();
 			
 			Connection connection = createConnection(hostName, port);
-		
-			
-			
+			r.db(databaseName).tableCreate(tableName).run(connection);
 		} catch(Exception exception) {
-			System.out.println(exception.getMessage());
-			return "failure";
+			return StatusHelper.createFailureReturnObject(exception.getMessage());
 		}
 		
-		return "success";
+		return StatusHelper.createSuccessReturnObject();
 	}
 	
 	private static Connection createConnection(String hostName, int port) {
 		return r.connection().hostname(hostName).port(port).connect();
 	}
 	
+	// TODO: Get the values for the following from properties file
 	private static String getHostName() {
 		return "localhost";
 	}
