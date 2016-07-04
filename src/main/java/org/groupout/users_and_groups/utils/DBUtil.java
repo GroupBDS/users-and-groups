@@ -30,6 +30,7 @@ public class DBUtil {
 		return r.connection().hostname(hostName).port(port).connect();
 	}
 	
+	// TODO: Get the values for the following from properties file
 	private static String getHostName() {
 		return "localhost";
 	}
