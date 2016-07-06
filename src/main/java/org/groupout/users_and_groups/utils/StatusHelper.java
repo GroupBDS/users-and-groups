@@ -3,11 +3,11 @@ package org.groupout.users_and_groups.utils;
 public class StatusHelper {
 
 	public static ReturnObject createFailureReturnObject(String message) {
-		return createReturnObject(Constants.FAILURE, message);
+		return createReturnObject(UtilConstants.FAILURE, message);
 	}
 	
 	public static ReturnObject createSuccessReturnObject() {
-		return createReturnObject(Constants.SUCCESS, "");
+		return createReturnObject(UtilConstants.SUCCESS, "");
 	}
 	
 	private static ReturnObject createReturnObject(String status, String message) {

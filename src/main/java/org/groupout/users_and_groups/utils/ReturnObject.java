@@ -15,7 +15,7 @@ public class ReturnObject {
 	private String messageKey = "message";
 	
 	public ReturnObject() {
-		this.returnValueMap.put(statusKey, Constants.SUCCESS);
+		this.returnValueMap.put(statusKey, UtilConstants.SUCCESS);
 		this.returnValueMap.put(messageKey, "");
 	}
 		
