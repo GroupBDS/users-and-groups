@@ -6,13 +6,19 @@ import java.util.Map;
 import org.groupout.users_and_groups.interfaces.DataRecord;
 import org.json.simple.JSONObject;
 
+import com.rethinkdb.net.Connection;
+
 public class RDBDataRecord<T> implements DataRecord<T> {
 
 	private T recordId;
+	private String tableName;
 	private Map<String, T> columnValueMap;
+	private RDBDataRecordManager dataManager;
 	
-	public RDBDataRecord() {
+	public RDBDataRecord(String tableName) {
 		columnValueMap = new HashMap<String, T>();
+		this.tableName = tableName;
+		this.dataManager = new RDBDataRecordManager(this.tableName);
 	}
 	
 	public T getId() {
@@ -37,6 +43,11 @@ public class RDBDataRecord<T> implements DataRecord<T> {
 	}
 	
 	public T insert() {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("title", "Pulp Fiction");
+		jsonObject.put("content", "Freaking awesome movie");
+		
+		this.dataManager.insert(jsonObject);
 		return this.recordId;
 	}
 	
