@@ -1,6 +1,9 @@
 package org.groupout.users_and_groups.classes;
 
-import org.groupout.users_and_groups.pojos.User;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.groupout.users_and_groups.pojos.Group;
 import org.groupout.users_and_groups.utils.ReturnObject;
 import org.groupout.users_and_groups.utils.UtilConstants;
 
@@ -13,25 +16,29 @@ import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.PutItemResult;
 
-public class UserRegistrationManager {
+public class GroupManager {
 
-	private static final String USER_TABLE = "Users";
-
-	public ReturnObject registerUser(User user) {
+	private static final String GROUP_TABLE = "Groups";
+	private String id;
+	
+	public ReturnObject createGroup(Group group) {
 		
 		ReturnObject returnObject = new ReturnObject();
 		returnObject.setStatus(UtilConstants.SUCCESS);
 		try {
 
+			id = "asfff";
+			Set<String> memberSet = new HashSet<>();
+			memberSet.add(group.admin);
 			DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(new ProfileCredentialsProvider()).withRegion(Regions.US_WEST_2));
-			Table table = dynamoDB.getTable(USER_TABLE);
+			Table table = dynamoDB.getTable(GROUP_TABLE);
 
 			Item item = new Item()
-					.withPrimaryKey("phone_number", user.phoneNumber)
-					.withString("first_name", user.firstName)
-					.withString("last_name", user.lastName)
-					.withString("email_address", user.emailAddress)
-					.withString("date_of_birth", user.dateOfBirth);
+					.withPrimaryKey("id", id)
+					.withString("name", group.name)
+					.withString("description", group.description)
+					.withString("admin", group.admin)
+					.withStringSet("members", memberSet);
 
 			PutItemOutcome outcome = table.putItem(item);
 			PutItemResult result = outcome.getPutItemResult();
@@ -43,5 +50,5 @@ public class UserRegistrationManager {
 
 		return returnObject;
 	}
-
+	
 }

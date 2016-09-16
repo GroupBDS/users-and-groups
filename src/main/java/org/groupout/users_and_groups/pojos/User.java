@@ -10,4 +10,5 @@ public class User {
 	@XmlElement public String phoneNumber;
 	@XmlElement public String emailAddress;
 	@XmlElement public String dateOfBirth;
+	@XmlElement public String[] groups;
 }
