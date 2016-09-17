@@ -6,16 +6,16 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.groupout.users_and_groups.classes.UserManager;
-import org.groupout.users_and_groups.pojos.User;
+import org.groupout.users_and_groups.classes.GroupManager;
+import org.groupout.users_and_groups.pojos.Group;
 
-@Path("/registerUser")
-public class UserRegistration {
+@Path("/createGroup")
+public class GroupAddition {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String registerUser(User user) {
-		return new UserManager().registerUser(user).getJSON().toString();
+	public String createGroup(Group group) {
+		return new GroupManager().createGroup(group).getJSON().toString();
 	}
 }
