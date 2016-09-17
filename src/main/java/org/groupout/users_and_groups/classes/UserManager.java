@@ -13,14 +13,13 @@ import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.PutItemResult;
 
-public class UserRegistrationManager {
+public class UserManager {
 
 	private static final String USER_TABLE = "Users";
 
 	public ReturnObject registerUser(User user) {
 		
 		ReturnObject returnObject = new ReturnObject();
-		returnObject.setStatus(UtilConstants.SUCCESS);
 		try {
 
 			DynamoDB dynamoDB = new DynamoDB(new AmazonDynamoDBClient(new ProfileCredentialsProvider()).withRegion(Regions.US_WEST_2));
