@@ -59,10 +59,10 @@ public class GroupManager {
 	/**
 	 * 
 	 * @param userKey phoneNumber of the user to be added to the group, primary key
-	 * @param group Group that the user should be added to
+	 * @param groupId Id of the group the user has to be added to
 	 * @return ReturnObject that contains status and message of the operation
 	 */
-	public ReturnObject addUserToGroup(String userKey, Group group) {
+	public ReturnObject addUserToGroup(String userKey, String groupId) {
 		
 		returnObject = new ReturnObject();
 		try {
@@ -70,14 +70,11 @@ public class GroupManager {
 			Table table = dynamoDB.getTable(GROUP_TABLE);
 		
 			PrimaryKey primaryKey = new PrimaryKey();
-			primaryKey.addComponent("id", group.id);
-			// Item item = table.getItem(primaryKey);
+			primaryKey.addComponent("id", groupId);
 			
 			AttributeUpdate attributeUpdate = new AttributeUpdate("members");
 			attributeUpdate.addElements(userKey);
 			table.updateItem(primaryKey, attributeUpdate);
-			
-			
 		} catch(Exception e) {
 			returnObject.setMessage(UtilConstants.FAILURE);
 			returnObject.setMessage(e.getMessage());
