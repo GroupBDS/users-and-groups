@@ -9,13 +9,16 @@ import java.util.Date;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+
+import org.groupout.users_and_groups.pojos.ApiKey;
+
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class TokenGenerator {
-
-	private static String token;
+	
+	private static long DEFAULT_TTL = 120000;
 	
 	/**
 	 * 
@@ -25,20 +28,19 @@ public class TokenGenerator {
 	 */
 	public static String getTokenForUser(String userId, long ttlMilliSeconds) {
 		
+		ApiKey apiKey = new ApiKey(ApiKeyConstants.AUTHENTICATION_API);
 		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 		
 		long milliSeconds = System.currentTimeMillis();
-		Date now = new Date(milliSeconds);
+		Date dateNow = new Date(milliSeconds);
 		
-		byte[] apiSecretBytes = DatatypeConverter.parseBase64Binary("api key");
+		byte[] apiSecretBytes = DatatypeConverter.parseBase64Binary(apiKey.getSecret());
 		Key signingKey = new SecretKeySpec(apiSecretBytes, signatureAlgorithm.getJcaName());
 		
 		JwtBuilder builder = Jwts.builder().setId(userId)
-										   .setIssuedAt(now)
-										   .setIssuer("SKP")
+										   .setIssuedAt(dateNow)
+										   .setIssuer(ApiKeyConstants.API_ISSUER)
 										   .signWith(signatureAlgorithm, signingKey);
-		
-		token = builder.compact();
 		
 		if (ttlMilliSeconds >= 0) {
 			long mills = milliSeconds + 1000;
@@ -46,6 +48,14 @@ public class TokenGenerator {
 			builder.setExpiration(exp);
 		}
 		
+		Date expiry = (ttlMilliSeconds > 0) ? new Date(ttlMilliSeconds) : new Date(DEFAULT_TTL);
+		builder.setExpiration(expiry);
+		
+		String token = builder.compact();
+		
+		// Save token in the database
+		new TokenManager().saveTokenForUser(token, userId, expiry.toString());
+
 		return token;
 	}
 }
