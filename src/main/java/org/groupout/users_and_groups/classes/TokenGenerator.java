@@ -23,7 +23,7 @@ public class TokenGenerator {
 	/**
 	 * 
 	 * @param userId Unique id that represents the user
-	 * @param ttlMilliSeconds time to expiry specified in milli seconds
+	 * @param ttlMilliSeconds time to expire specified in milli seconds
 	 * @return token string
 	 */
 	public static String getTokenForUser(String userId, long ttlMilliSeconds) {
