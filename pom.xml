@@ -56,6 +56,20 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -77,4 +91,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>2.8.3</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

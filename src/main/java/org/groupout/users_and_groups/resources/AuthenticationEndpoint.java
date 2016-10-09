@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.groupout.users_and_groups.classes.TokenGenerator;
+import org.groupout.users_and_groups.classes.TokenManager;
 
 @Path("/authenticate")
 public class AuthenticationEndpoint {
@@ -22,7 +22,9 @@ public class AuthenticationEndpoint {
 			
 			authenticate(userName, password);
 			
-			String token = TokenGenerator.getTokenForUser(userName, 1000);
+			
+			String token = new TokenManager().getOrCreateUserToken(userName, 1000);
+			// String token = TokenGenerator.getTokenForUser(userName, 1000);
 			
 			return Response.ok(token).build();
 		} catch(Exception e) {
