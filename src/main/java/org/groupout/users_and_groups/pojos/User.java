@@ -20,6 +20,4 @@ public class User {
 				+ ", emailAddress=" + emailAddress + ", dateOfBirth=" + dateOfBirth + ", groups="
 				+ Arrays.toString(groups) + "]";
 	}
-	
-
 }
