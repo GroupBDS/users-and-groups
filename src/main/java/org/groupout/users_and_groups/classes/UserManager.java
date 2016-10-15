@@ -26,22 +26,12 @@ public class UserManager {
 
 		ReturnObject returnObject = new ReturnObject();
 		try {
-
-			DynamoDB dynamoDB = new DynamoDB(dynamoDBClient);
-			Table table = dynamoDB.getTable(USER_TABLE);
-
-			Item item = new Item().withPrimaryKey("phone_number", user.phoneNumber)
-					.withString("first_name", user.firstName).withString("last_name", user.lastName)
-					.withString("email_address", user.emailAddress).withString("date_of_birth", user.dateOfBirth);
-
-			PutItemOutcome outcome = table.putItem(item);
-			PutItemResult result = outcome.getPutItemResult();
-			returnObject.setMessage(result.toString());
+			user.loadVariableMap();
+			returnObject.setMessage(user.insert());
 		} catch (Exception e) {
 			returnObject.setStatus(UtilConstants.FAILURE);
 			returnObject.setMessage(e.getMessage());
 		}
-
 		return returnObject;
 	}
 

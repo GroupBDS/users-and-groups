@@ -16,11 +16,11 @@ import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.PutItemResult;
 
-public class DynamoDBDataRecord<T> implements DataRecord <T> {
+public class DynamoDBDataRecord implements DataRecord<String> {
 
 	private AmazonDynamoDBClient dynamoDBClient;
 	private String tableName;
-	private Map<String, T> attributeMap = new HashMap<>();
+	private Map<String, String> attributeMap = new HashMap<>();
 	private DynamoDB dynamoDB;
 	private Table table;
 	
@@ -37,52 +37,53 @@ public class DynamoDBDataRecord<T> implements DataRecord <T> {
 		this.tableName = tableName;
 	}
 	
-	public T getId() {
-		return (T)"Success";
+	public String getId() {
+		return "Success";
 	}
 	
-	public void setValue(String columnName, T value) {
+	public void setValue(String columnName, String value) {
 		attributeMap.put(columnName, value);
 	}
 	
-	public T getValue(String columnName) {
+	public String getValue(String columnName) {
 		return attributeMap.get(columnName);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject getJSON() {
-		String jsonString = JSONObject.toJSONString(attributeMap);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.putAll(attributeMap);
 		
 		return jsonObject;
 	}
 	
-	public T insert() {
+	public String insert() {
+		PutItemResult result = null;
 		try{
 			Item item = getItemToInsert();
 			PutItemOutcome outcome = table.putItem(item);
-			PutItemResult result = outcome.getPutItemResult();
+			result = outcome.getPutItemResult();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		return getId();
+		return result.toString();
 	}
 	
 	public boolean deleteRecord() {
 		return true;
 	}
 	
-	public void initializeRecordById(T recordId) {
+	public void initializeRecordById(String recordId) {
 		
 	}
 	
 	private Item getItemToInsert() {
 		Item item = new Item();
-		Iterator<Entry<String, T>> iterator = attributeMap.entrySet().iterator();
+		Iterator<Entry<String, String>> iterator = attributeMap.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<String, T> entry = (Map.Entry<String, T>)iterator.next();
-			item.withString(entry.getKey(), (String)entry.getValue());
+			Map.Entry<String, String> entry = (Map.Entry<String, String>)iterator.next();
+			item.withString(entry.getKey(), entry.getValue());
 		}
 		
 		return item;
