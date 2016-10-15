@@ -25,12 +25,16 @@ public class DynamoDBDataRecord<T> implements DataRecord <T> {
 	private Table table;
 	
 	public DynamoDBDataRecord(String tableName) {
-		this.tableName = tableName;
-		setParameters();
+		setTableName(tableName);
+		setEnvironmentParameters();
 	}
 	
 	public DynamoDBDataRecord() {
-		setParameters();
+		setEnvironmentParameters();
+	}
+	
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 	
 	public T getId() {
@@ -66,7 +70,7 @@ public class DynamoDBDataRecord<T> implements DataRecord <T> {
 	}
 	
 	public boolean deleteRecord() {
-		
+		return true;
 	}
 	
 	public void initializeRecordById(T recordId) {
@@ -84,7 +88,7 @@ public class DynamoDBDataRecord<T> implements DataRecord <T> {
 		return item;
 	}
 	
-	private void setParameters() {
+	private void setEnvironmentParameters() {
 		dynamoDBClient = new AmazonDynamoDBClient(new ProfileCredentialsProvider()).withRegion(Regions.US_WEST_2);
 		dynamoDB = new DynamoDB(dynamoDBClient);
 		table = dynamoDB.getTable(tableName);
