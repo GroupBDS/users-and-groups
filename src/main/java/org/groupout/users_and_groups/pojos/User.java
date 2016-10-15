@@ -19,6 +19,10 @@ public class User extends DynamoDBDataRecord implements DataModel {
 	
 	private static final String USER_TABLE = "Users";
 	
+	public User() {
+		super(USER_TABLE);
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
